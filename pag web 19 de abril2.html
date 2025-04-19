@@ -1,0 +1,173 @@
+// Archivo: main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App.jsx';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+
+// Archivo: App.jsx
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar.jsx';
+import Home from './pages/Home.jsx';
+import About from './pages/About.jsx';
+import Products from './pages/Products.jsx';
+import Courses from './pages/Courses.jsx';
+import Contact from './pages/Contact.jsx';
+
+function App() {
+  return (
+    <div className="font-sans">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </div>
+  );
+}
+
+export default App;
+
+// Archivo: components/Navbar.jsx
+import { Link } from 'react-router-dom';
+
+function Navbar() {
+  return (
+    <nav className="bg-green-900 text-white p-4 flex justify-between items-center">
+      <h1 className="text-2xl font-bold">Esencia y Ciencia</h1>
+      <div className="space-x-4">
+        <Link to="/" className="hover:underline">Inicio</Link>
+        <Link to="/about" className="hover:underline">Quiénes Somos</Link>
+        <Link to="/products" className="hover:underline">Productos</Link>
+        <Link to="/courses" className="hover:underline">Cursos</Link>
+        <Link to="/contact" className="hover:underline">Contacto</Link>
+      </div>
+    </nav>
+  );
+}
+
+export default Navbar;
+
+// Archivo: pages/Home.jsx
+import portada from '../assets/portada4.png';
+
+function Home() {
+  return (
+    <section className="relative h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${portada})` }}>
+      <div className="bg-black bg-opacity-50 p-10 rounded-xl text-white text-center max-w-xl">
+        <h2 className="text-4xl font-bold mb-4">Bienvenido a Esencia y Ciencia</h2>
+        <p className="text-lg">Conectamos el saber ancestral con la ciencia para tu bienestar.</p>
+      </div>
+    </section>
+  );
+}
+
+export default Home;
+
+// Archivo: pages/About.jsx
+function About() {
+  return (
+    <section className="p-8 max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-4">¿Quiénes somos?</h2>
+      <p className="mb-4">Somos una empresa dedicada a la producción y comercialización de productos naturales, preparados con amor y respeto por la Tierra.</p>
+      <p className="mb-4">Valoramos los conocimientos tradicionales y los fusionamos con técnicas modernas para brindarte lo mejor de la naturaleza.</p>
+      <h3 className="text-2xl font-semibold mt-6">Misión</h3>
+      <p className="mb-4">Promover el bienestar integral a través de productos naturales y educación sobre el uso consciente de plantas medicinales y recursos naturales.</p>
+      <h3 className="text-2xl font-semibold mt-6">Visión</h3>
+      <p>Ser líderes en educación y productos naturales en Latinoamérica, empoderando a las personas con conocimientos que sanan cuerpo, mente y espíritu.</p>
+    </section>
+  );
+}
+
+export default About;
+
+// Archivo: pages/Products.jsx
+function Products() {
+  const products = ['Aceites esenciales', 'Tinturas madres', 'Ungüentos', 'Jabones artesanales'];
+
+  return (
+    <section className="p-8 max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-4">Nuestros Productos</h2>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {products.map((item, index) => (
+          <li key={index} className="p-4 bg-green-100 rounded-xl shadow">{item}</li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+export default Products;
+
+// Archivo: pages/Courses.jsx
+function Courses() {
+  const courses = [
+    'Plantas medicinales',
+    'Cosmética natural',
+    'Destilación de aceites esenciales',
+    'Jabones artesanales',
+    'Huertos urbanos',
+    'Agricultura orgánica',
+    'Herbolaria',
+    'Naturaleza y salud'
+  ];
+
+  return (
+    <section className="p-8 max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-4">Nuestros Cursos</h2>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {courses.map((item, index) => (
+          <li key={index} className="p-4 bg-green-50 rounded-xl border border-green-300 shadow-sm">{item}</li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+export default Courses;
+
+// Archivo: pages/Contact.jsx
+function Contact() {
+  return (
+    <section className="p-8 max-w-2xl mx-auto">
+      <h2 className="text-3xl font-bold mb-4">Contacto</h2>
+      <form className="space-y-4">
+        <input type="text" placeholder="Nombre" className="w-full p-2 border rounded" />
+        <input type="email" placeholder="Correo electrónico" className="w-full p-2 border rounded" />
+        <textarea placeholder="Mensaje" className="w-full p-2 border rounded" rows="5"></textarea>
+        <button type="submit" className="bg-green-700 text-white px-4 py-2 rounded">Enviar</button>
+      </form>
+    </section>
+  );
+}
+
+export default Contact;
+
+// Archivo: index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-white text-gray-800;
+}
+
+// Archivo: vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  base: '/',
+});
